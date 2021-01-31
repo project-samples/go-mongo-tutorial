@@ -3,7 +3,6 @@ package app
 type Root struct {
 	Server   ServerConfig `mapstructure:"server"`
 	Mongo    MongoConfig  `mapstructure:"mongo"`
-	Response string       `mapstructure:"response"`
 }
 
 type ServerConfig struct {
