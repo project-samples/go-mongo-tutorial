@@ -22,7 +22,7 @@ func NewApp(context context.Context, mongoConfig MongoConfig) (*ApplicationConte
 
 	db := client.Database(mongoConfig.Database)
 
-	partnerService := services.NewUserService(db)
-	partnerController := handlers.NewUserHandler(partnerService)
-	return &ApplicationContext{UserHandler: partnerController}, nil
+	userService := services.NewUserService(db)
+	userHandler := handlers.NewUserHandler(userService)
+	return &ApplicationContext{UserHandler: userHandler}, nil
 }
