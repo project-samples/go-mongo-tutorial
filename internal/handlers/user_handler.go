@@ -15,7 +15,7 @@ type UserHandler struct {
 }
 
 func NewUserHandler(userService UserService) *UserHandler {
-	return &UserHandler{userService}
+	return &UserHandler{service: userService}
 }
 
 func (h *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) {

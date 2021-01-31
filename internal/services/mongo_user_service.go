@@ -17,7 +17,7 @@ type MongoUserService struct {
 
 func NewUserService(db *mongo.Database) *MongoUserService {
 	collectionName := "users"
-	return &MongoUserService{db.Collection(collectionName)}
+	return &MongoUserService{Collection: db.Collection(collectionName)}
 }
 
 func (p *MongoUserService) GetAll(ctx context.Context) (*[]User, error) {
