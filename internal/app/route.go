@@ -19,5 +19,13 @@ func Route(r *chi.Mux, context context.Context, mongoConfig MongoConfig) error {
 	r.Put(userPath+ "/{id}", app.UserHandler.Update)
 	r.Delete(userPath+ "/{id}", app.UserHandler.Delete)
 
+	locationPath := "/locations"
+	r.Get(locationPath, app.LocationHandler.GetAll)
+	// r.Get(locationPath, app.LocationHandler.Search)
+	r.Post(locationPath + "/search", app.LocationHandler.Search)
+	r.Get(locationPath+ "/{id}", app.LocationHandler.Load)
+	r.Post(locationPath, app.LocationHandler.Insert)
+	r.Put(locationPath+ "/{id}", app.LocationHandler.Update)
+	r.Delete(locationPath+ "/{id}", app.LocationHandler.Delete)
 	return nil
 }

@@ -8,7 +8,6 @@ mongo:
 
 log:
   level: info
-  duration: duration
   map:
     time: "@timestamp"
     msg: message
@@ -16,7 +15,6 @@ log:
 middleware:
   log: true
   skips: /health
-  duration: duration
   request: request
   response: response
-
+  size: size

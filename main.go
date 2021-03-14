@@ -22,11 +22,15 @@ func main() {
 	}
 
 	r := chi.NewRouter()
-	logger := log.Initialize(conf.Log)
+	// logger := log.Initialize(conf.Log)
+	/*
+	log.Initialize(conf.Log)
 	r.Use(m.BuildContext)
-	l := m.NewStructuredLogger(logger)
-	r.Use(m.Logger(m.Standardize(conf.MiddleWare), logger, l))
-	r.Use(m.Recover)
+	l := m.NewStructuredLogger()
+	r.Use(m.Logger(conf.MiddleWare, log.InfoFields, l))
+	 */
+	r.Use(m.Recover(log.ErrorMsg))
+	// r.Handle("/panic", m.PanicHandler())
 
 	er2 := app.Route(r, context.Background(), conf.Mongo)
 	if er2 != nil {
@@ -39,3 +43,4 @@ func main() {
 	}
 	http.ListenAndServe(server, r)
 }
+
