@@ -5,3 +5,16 @@ server:
 mongo:
   uri: mongodb://@localhost:27017
   database: master_data
+
+log:
+  level: info
+  map:
+    time: "@timestamp"
+    msg: message
+
+middleware:
+  log: true
+  skips: /health
+  request: request
+  response: response
+  size: size
