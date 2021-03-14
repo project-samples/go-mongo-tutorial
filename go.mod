@@ -11,9 +11,9 @@ require (
 	github.com/common-go/search v1.0.3-0.20210307165837-cbf912ba95ad
 	github.com/common-go/service v0.1.2
 	github.com/common-go/validator v0.0.7
-	github.com/go-chi/chi v1.5.1
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/google/uuid v1.2.0
+	github.com/gorilla/mux v1.8.0
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/spf13/viper v1.7.1
 	go.mongodb.org/mongo-driver v1.4.7

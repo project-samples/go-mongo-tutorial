@@ -3,29 +3,34 @@ package app
 import (
 	"context"
 
-	"github.com/go-chi/chi"
+	"github.com/gorilla/mux"
 )
 
-func Route(r *chi.Mux, context context.Context, mongoConfig MongoConfig) error {
+const (
+	GET = "GET"
+	POST = "POST"
+	PUT = "PUT"
+	DELETE = "DELETE"
+)
+func Route(r *mux.Router, context context.Context, mongoConfig MongoConfig) error {
 	app, err := NewApp(context, mongoConfig)
 	if err != nil {
 		return err
 	}
 
 	userPath := "/users"
-	r.Get(userPath, app.UserHandler.GetAll)
-	r.Get(userPath+ "/{id}", app.UserHandler.Load)
-	r.Post(userPath, app.UserHandler.Insert)
-	r.Put(userPath+ "/{id}", app.UserHandler.Update)
-	r.Delete(userPath+ "/{id}", app.UserHandler.Delete)
+	r.HandleFunc(userPath, app.UserHandler.GetAll).Methods(GET)
+	r.HandleFunc(userPath+ "/{id}", app.UserHandler.Load).Methods(GET)
+	r.HandleFunc(userPath, app.UserHandler.Insert).Methods(POST)
+	r.HandleFunc(userPath+ "/{id}", app.UserHandler.Update).Methods(PUT)
+	r.HandleFunc(userPath+ "/{id}", app.UserHandler.Delete).Methods(DELETE)
 
 	locationPath := "/locations"
-	r.Get(locationPath, app.LocationHandler.GetAll)
-	// r.Get(locationPath, app.LocationHandler.Search)
-	r.Post(locationPath + "/search", app.LocationHandler.Search)
-	r.Get(locationPath+ "/{id}", app.LocationHandler.Load)
-	r.Post(locationPath, app.LocationHandler.Insert)
-	r.Put(locationPath+ "/{id}", app.LocationHandler.Update)
-	r.Delete(locationPath+ "/{id}", app.LocationHandler.Delete)
+	r.HandleFunc(locationPath, app.LocationHandler.GetAll).Methods(GET)
+	r.HandleFunc(locationPath + "/search", app.LocationHandler.Search).Methods(GET, POST)
+	r.HandleFunc(locationPath+ "/{id}", app.LocationHandler.Load).Methods(GET)
+	r.HandleFunc(locationPath, app.LocationHandler.Insert).Methods(POST)
+	r.HandleFunc(locationPath+ "/{id}", app.LocationHandler.Update).Methods(PUT)
+	r.HandleFunc(locationPath+ "/{id}", app.LocationHandler.Delete).Methods(DELETE)
 	return nil
 }

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/go-chi/chi"
+	"github.com/gorilla/mux"
 
 	. "go-service/internal/models"
 	. "go-service/internal/services"
@@ -19,7 +19,7 @@ func NewUserHandler(userService UserService) *UserHandler {
 }
 
 func (h *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	result, err := h.service.GetAll(r.Context(), )
+	result, err := h.service.GetAll(r.Context())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -28,7 +28,7 @@ func (h *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *UserHandler) Load(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
+	id := mux.Vars(r)["id"]
 	if len(id) == 0 {
 		http.Error(w, "Id cannot be empty", http.StatusBadRequest)
 		return
@@ -67,7 +67,7 @@ func (h *UserHandler) Update(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, er1.Error(), http.StatusBadRequest)
 		return
 	}
-	id := chi.URLParam(r, "id")
+	id := mux.Vars(r)["id"]
 	if len(id) == 0 {
 		http.Error(w, "Id cannot be empty", http.StatusBadRequest)
 		return
@@ -86,7 +86,7 @@ func (h *UserHandler) Update(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *UserHandler) Delete(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
+	id := mux.Vars(r)["id"]
 	if len(id) == 0 {
 		http.Error(w, "Id cannot be empty", http.StatusBadRequest)
 		return

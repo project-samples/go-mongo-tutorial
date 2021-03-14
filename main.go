@@ -9,7 +9,7 @@ import (
 	"github.com/common-go/config"
 	"github.com/common-go/log"
 	m "github.com/common-go/middleware"
-	"github.com/go-chi/chi"
+	"github.com/gorilla/mux"
 
 	"go-service/internal/app"
 )
@@ -21,16 +21,13 @@ func main() {
 		panic(er1)
 	}
 
-	r := chi.NewRouter()
+	r := mux.NewRouter()
 	// logger := log.Initialize(conf.Log)
-	/*
 	log.Initialize(conf.Log)
 	r.Use(m.BuildContext)
 	l := m.NewStructuredLogger()
 	r.Use(m.Logger(conf.MiddleWare, log.InfoFields, l))
-	 */
 	r.Use(m.Recover(log.ErrorMsg))
-	// r.Handle("/panic", m.PanicHandler())
 
 	er2 := app.Route(r, context.Background(), conf.Mongo)
 	if er2 != nil {
@@ -43,4 +40,3 @@ func main() {
 	}
 	http.ListenAndServe(server, r)
 }
-
