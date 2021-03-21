@@ -10,6 +10,7 @@ const (
 	GET = "GET"
 	POST = "POST"
 	PUT = "PUT"
+	PATCH = "PATCH"
 	DELETE = "DELETE"
 )
 func Route(r *mux.Router, context context.Context, mongoConfig MongoConfig) error {
@@ -29,8 +30,9 @@ func Route(r *mux.Router, context context.Context, mongoConfig MongoConfig) erro
 	r.HandleFunc(locationPath, app.LocationHandler.GetAll).Methods(GET)
 	r.HandleFunc(locationPath + "/search", app.LocationHandler.Search).Methods(GET, POST)
 	r.HandleFunc(locationPath+ "/{id}", app.LocationHandler.Load).Methods(GET)
-	r.HandleFunc(locationPath, app.LocationHandler.Insert).Methods(POST)
+	r.HandleFunc(locationPath, app.LocationHandler.Create).Methods(POST)
 	r.HandleFunc(locationPath+ "/{id}", app.LocationHandler.Update).Methods(PUT)
+	r.HandleFunc(locationPath+ "/{id}", app.LocationHandler.Patch).Methods(PATCH)
 	r.HandleFunc(locationPath+ "/{id}", app.LocationHandler.Delete).Methods(DELETE)
 	return nil
 }
