@@ -6,10 +6,12 @@
 git clone https://github.com/go-tutorials/go-mongo-rest-api.git
 cd go-mongo-rest-api
 ```
+
 #### To run the application
 ```shell
 go run main.go
 ```
+
 ## API Design
 ### Common HTTP methods
 - GET: retrieve a representation of the resource
@@ -17,6 +19,7 @@ go run main.go
 - PUT: update the resource
 - PATCH: perform a partial update of a resource
 - DELETE: delete a resource
+
 ## API design for users
 - Resource: users
 ### Get all users
@@ -40,6 +43,7 @@ go run main.go
     }
 ]
 ```
+
 ### Get an user by id
 #### *Request:* GET /users/:id
 ```url
@@ -55,6 +59,7 @@ GET /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
+
 ### Create a new user
 #### *Request:* POST /users 
 ```json
@@ -66,13 +71,14 @@ GET /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-#### *Response:* *Return* a number
+#### *Response:* Return*a number*
 - 1: success
 - 0: duplicate key
 - -1: error
 ```json
 1
 ```
+
 ### Update a new user by id
 #### *Request* PUT /users/:id
 ```url
@@ -86,19 +92,20 @@ PUT /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-#### *Response:* *Return* a number
+#### *Response:* Return*a number*
 - 1: success
 - 0: duplicate key
 - -1: error
 ```json
 1
 ```
+
 ### Delete a new user by id
 #### *Request:* DELETE /users/:id
 ```url
 DELETE /users/wolverine
 ```
-#### *Response:* *Return* a number
+#### *Response:* Return*a number*
 1. *Return* a number
 - 1: success
 - 0: duplicate key
