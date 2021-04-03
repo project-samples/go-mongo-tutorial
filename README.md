@@ -21,7 +21,7 @@ go run main.go
 - DELETE: delete a resource
 
 ## API design for users
-*Resource:* users
+#### *Resource:* users
 ### Get all users
 #### *Request:* GET /users
 #### *Response:*
