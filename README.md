@@ -21,7 +21,7 @@ go run main.go
 - DELETE: delete a resource
 
 ## API design for users
-- Resource: users
+Resource: users
 ### Get all users
 #### *Request:* GET /users
 #### *Response:*
@@ -44,9 +44,9 @@ go run main.go
 ]
 ```
 
-### Get an user by id
+### Get one user by id
 #### *Request:* GET /users/:id
-```url
+```shell
 GET /users/wolverine
 ```
 #### *Response:*
@@ -79,7 +79,7 @@ GET /users/wolverine
 1
 ```
 
-### Update a new user by id
+### Update one user by id
 #### *Request:* PUT /users/:id
 ```shell
 PUT /users/wolverine
