@@ -23,8 +23,8 @@ go run main.go
 ## API design for users
 - Resource: users
 ### Get all users
-#### Request: *GET /users*
-#### Response:
+#### *Request:* GET /users
+#### *Response:*
 ```json
 [
     {
@@ -45,11 +45,11 @@ go run main.go
 ```
 
 ### Get an user by id
-#### Request: *GET /users/:id*
+#### *Request:* GET /users/:id
 ```url
 GET /users/wolverine
 ```
-#### Response:
+#### *Response:*
 ```json
 {
     "id": "wolverine",
@@ -61,7 +61,7 @@ GET /users/wolverine
 ```
 
 ### Create a new user
-#### Request: *POST /users* 
+#### *Request:* POST /users 
 ```json
 {
     "id": "wolverine",
@@ -71,7 +71,7 @@ GET /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-#### Response: *Return* a number
+#### *Response:* Return *a number*
 - 1: success
 - 0: duplicate key
 - -1: error
@@ -80,8 +80,8 @@ GET /users/wolverine
 ```
 
 ### Update a new user by id
-#### Request *PUT /users/:id*
-```url
+#### *Request:* PUT /users/:id
+```shell
 PUT /users/wolverine
 ```
 ```json
@@ -92,7 +92,7 @@ PUT /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-#### Response: *Return* a number
+#### *Response:* Return *a number*
 - 1: success
 - 0: duplicate key
 - -1: error
@@ -101,12 +101,11 @@ PUT /users/wolverine
 ```
 
 ### Delete a new user by id
-#### Request: *DELETE /users/:id*
-```url
+#### *Request:* DELETE /users/:id
+```shell
 DELETE /users/wolverine
 ```
-#### Response: *Return* a number
-1. *Return* a number
+#### *Response:* Return *a number*
 - 1: success
 - 0: duplicate key
 - -1: error
