@@ -20,8 +20,8 @@ go run main.go
 ## API design for users
 - Resource: users
 ### Get all users
-##### *Request:* GET /users
-##### *Response:*
+#### *Request:* GET /users
+#### *Response:*
 ```json
 [
     {
@@ -41,11 +41,11 @@ go run main.go
 ]
 ```
 ### Get an user by id
-##### *Request:* GET /users/:id
+#### *Request:* GET /users/:id
 ```url
 GET /users/wolverine
 ```
-##### *Response:*
+#### *Response:*
 ```json
 {
     "id": "wolverine",
@@ -66,7 +66,7 @@ GET /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-##### *Response:* *Return* a number
+#### *Response:* *Return* a number
 - 1: success
 - 0: duplicate key
 - -1: error
@@ -86,19 +86,19 @@ PUT /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-##### *Response:* *Return* a number
+#### *Response:* *Return* a number
 - 1: success
 - 0: duplicate key
 - -1: error
 ```json
 1
 ```
-#### Delete a new user by id
+### Delete a new user by id
 #### *Request:* DELETE /users/:id
 ```url
 DELETE /users/wolverine
 ```
-##### *Response:* *Return* a number
+#### *Response:* *Return* a number
 1. *Return* a number
 - 1: success
 - 0: duplicate key
