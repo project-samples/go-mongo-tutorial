@@ -82,7 +82,6 @@ GET /users/wolverine
 ```url
 PUT /users/wolverine
 ```
-- Request body
 ```json
 {
     "username": "james.howlett",
