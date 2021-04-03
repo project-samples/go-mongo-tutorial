@@ -91,7 +91,7 @@ PUT /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-#####Response
+#### Response
 1. *Return* a number
 ```
 - 1: success
@@ -107,7 +107,7 @@ PUT /users/wolverine
 ```url
 DELETE /users/wolverine
 ```
-##### Response
+#### Response
 1. *Return* a number
 ```
 - 1: success
