@@ -25,18 +25,18 @@ go run main.go
 ```json
 [
     {
-        "id": "spiderman",
-        "username": "spiderman",
-        "email": "peter.parker@gmail.com",
-        "phone": "0987654321",
-        "dateOfBirth": "1962-08-25T16:59:59.999Z"
-    },
-    {
         "id": "wolverine",
-        "username": "wolverine",
+        "username": "james.howlett",
         "email": "james.howlett@gmail.com",
         "phone": "0987654321",
         "dateOfBirth": "1974-11-16T16:59:59.999Z"
+    },
+    {
+        "id": "spiderman",
+        "username": "peter.parker",
+        "email": "peter.parker@gmail.com",
+        "phone": "0987654321",
+        "dateOfBirth": "1962-08-25T16:59:59.999Z"
     }
 ]
 ```
@@ -49,7 +49,7 @@ GET /users/wolverine
 ```json
 {
     "id": "wolverine",
-    "username": "wolverine",
+    "username": "james.howlett",
     "email": "james.howlett@gmail.com",
     "phone": "0987654321",
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
@@ -60,7 +60,7 @@ GET /users/wolverine
 ```json
 {
     "id": "wolverine",
-    "username": "wolverine",
+    "username": "james.howlett",
     "email": "james.howlett@gmail.com",
     "phone": "0987654321",
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
@@ -85,7 +85,7 @@ PUT /users/wolverine
 - Request body
 ```json
 {
-    "username": "wolverine",
+    "username": "james.howlett",
     "email": "james.howlett@gmail.com",
     "phone": "0987654321",
     "dateOfBirth": "1974-11-16T16:59:59.999Z"

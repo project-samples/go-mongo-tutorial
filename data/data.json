@@ -1,5 +1,4 @@
 [
-    {"id": "01", "username": "user01", "dateOfBirth": "2009-12-30T23:59:59.999+07:00", "email": "test01@gmail.com", "phone": "0987654321"},
-    {"id": "02", "username": "user02", "dateOfBirth": "2009-11-30T23:59:59.999+07:00", "email": "test02@gmail.com", "phone": "0987654321"},
-    {"id": "03", "username": "user02", "dateOfBirth": "2009-10-30T23:59:59.999+07:00", "email": "test03@gmail.com"}
+    {"id": "wolverine", "username": "james.howlett", "email": "james.howlett@gmail.com", "phone": "0987654321", "dateOfBirth": "1974-11-16T16:59:59.999Z"},
+    {"id": "spiderman", "username": "peter.parker", "email": "peter.parker@gmail.com", "phone": "0987654321", "dateOfBirth": "1962-08-25T16:59:59.999Z"}
 ]
