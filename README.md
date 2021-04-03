@@ -25,18 +25,18 @@ go run main.go
 ```json
 [
     {
-        "id": "wolverine",
-        "username": "james.howlett",
-        "email": "james.howlett@gmail.com",
-        "phone": "0987654321",
-        "dateOfBirth": "1974-11-16T16:59:59.999Z"
-    },
-    {
         "id": "spiderman",
         "username": "peter.parker",
         "email": "peter.parker@gmail.com",
         "phone": "0987654321",
         "dateOfBirth": "1962-08-25T16:59:59.999Z"
+    },
+    {
+        "id": "wolverine",
+        "username": "james.howlett",
+        "email": "james.howlett@gmail.com",
+        "phone": "0987654321",
+        "dateOfBirth": "1974-11-16T16:59:59.999Z"
     }
 ]
 ```
@@ -66,14 +66,10 @@ GET /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-##### Response
-1. *Return* a number
-```
+##### *Response:* *Return* a number
 - 1: success
 - 0: duplicate key
 - -1: error
-```
-2. *Sample*
 ```json
 1
 ```
@@ -90,14 +86,10 @@ PUT /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-#### Response
-1. *Return* a number
-```
+##### *Response:* *Return* a number
 - 1: success
 - 0: duplicate key
 - -1: error
-```
-2. *Sample*
 ```json
 1
 ```
@@ -106,14 +98,11 @@ PUT /users/wolverine
 ```url
 DELETE /users/wolverine
 ```
-#### Response
+##### *Response:* *Return* a number
 1. *Return* a number
-```
 - 1: success
 - 0: duplicate key
 - -1: error
-```
-2. *Sample*
 ```json
 1
 ```
