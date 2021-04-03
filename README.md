@@ -1,28 +1,28 @@
 # go-mongo-tutorial
 
-##How to run
-####Clone the repository
+## How to run
+#### Clone the repository
 ```shell
 git clone https://github.com/go-tutorials/go-mongo-rest-api.git
 cd go-mongo-rest-api
 ```
-####To run the application
+#### To run the application
 ```shell
 go run main.go
 ```
-##API Design
-###Common HTTP methods
+## API Design
+### Common HTTP methods
 - GET: retrieve a representation of the resource
 - POST: create a new resource
 - PUT: update the resource
 - PATCH: perform a partial update of a resource
 - DELETE: delete a resource
-###API design for users
+## API design for users
 - Resource: users
-####Get all users
-#####Request
+### Get all users
+##### Request
 - GET /users
-#####Response
+##### Response
 ```json
 [
     {
@@ -41,14 +41,14 @@ go run main.go
     }
 ]
 ```
-####Get an user by id
-#####Request
+### Get an user by id
+##### Request
 - GET /users/:id
 - Sample
 ```url
 GET /users/wolverine
 ```
-#####Response
+##### Response
 ```json
 {
     "id": "wolverine",
@@ -58,8 +58,8 @@ GET /users/wolverine
     "dateOfBirth": "1974-11-16T16:59:59.999Z"
 }
 ```
-####Create a new user
-####Request
+### Create a new user
+#### Request
 - POST /users
 - Request body
 ```json
@@ -71,7 +71,7 @@ GET /users/wolverine
     "dateOfBirth": "1962-08-25T16:59:59.999Z"
 }
 ```
-#####Response
+##### Response
 1. *Return*: number
 - 1: success
 - 0: duplicate key
@@ -80,8 +80,8 @@ GET /users/wolverine
 ```json
 1
 ```
-####Update a new user by id
-####Request
+### Update a new user by id
+#### Request
 - PUT /users/:id
 - Request URL
 ```url
@@ -105,14 +105,14 @@ PUT /users/wolverine
 ```json
 1
 ```
-####Delete a new user by id
-####Request
+#### Delete a new user by id
+#### Request
 - DELETE /users/:id
 - Sample Request URL
 ```url
 DELETE /users/wolverine
 ```
-#####Response
+##### Response
 1. *Return*: number
 - 1: success
 - 0: no data found
