@@ -88,7 +88,6 @@ GET /users/wolverine
 }
 ```
 #### *Response:* 1: success, 0: duplicate key, -1: error
-1: success, 0: duplicate key, -1: error
 ```json
 1
 ```
