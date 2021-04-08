@@ -1,15 +1,11 @@
 package services
 
 import (
-	"context"
-
-	. "go-service/internal/models"
+	"github.com/common-go/search"
+	"github.com/common-go/service"
 )
 
 type UserService interface {
-	GetAll(ctx context.Context) (*[]User, error)
-	Load(ctx context.Context, id string) (*User, error)
-	Insert(ctx context.Context, user *User) (int64, error)
-	Update(ctx context.Context, user *User) (int64, error)
-	Delete(ctx context.Context, id string) (int64, error)
+	search.SearchService
+	service.GenericService
 }

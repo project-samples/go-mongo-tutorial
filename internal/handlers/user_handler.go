@@ -1,107 +1,41 @@
 package handlers
 
 import (
-	"encoding/json"
+	"context"
 	"net/http"
+	"reflect"
 
-	"github.com/gorilla/mux"
+	"github.com/common-go/http"
+	"github.com/common-go/search"
+	"github.com/common-go/service"
+	"github.com/common-go/validator"
 
 	. "go-service/internal/models"
+	. "go-service/internal/search-models"
 	. "go-service/internal/services"
 )
 
 type UserHandler struct {
-	service UserService
+	*server.GenericHandler
+	*search.SearchHandler
+	Service UserService
 }
 
-func NewUserHandler(userService UserService) *UserHandler {
-	return &UserHandler{service: userService}
+func NewUserHandler(userService UserService, generateId func(context.Context) (string, error), validator validator.Validator, logError func(context.Context, string)) *UserHandler {
+	modelType := reflect.TypeOf(User{})
+	searchModelType := reflect.TypeOf(UserSM{})
+	idGenerator := service.NewIdGenerator(generateId, false, false)
+	modelBuilder := service.NewModelBuilder(idGenerator.Generate, modelType, "", "userId", "CreatedBy", "CreatedAt", "UpdatedBy", "UpdatedAt")
+	searchHandler := search.NewSearchHandler(userService.Search, searchModelType, logError, nil)
+	genericHandler := server.NewGenericHandler(userService, modelType, modelBuilder, logError, validator.Validate)
+	return &UserHandler{GenericHandler: genericHandler, SearchHandler: searchHandler, Service: userService}
 }
 
 func (h *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	result, err := h.service.GetAll(r.Context())
+	result, err := h.Service.All(r.Context())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	respond(w, result)
-}
-
-func (h *UserHandler) Load(w http.ResponseWriter, r *http.Request) {
-	id := mux.Vars(r)["id"]
-	if len(id) == 0 {
-		http.Error(w, "Id cannot be empty", http.StatusBadRequest)
-		return
-	}
-
-	result, err := h.service.Load(r.Context(), id)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	respond(w, result)
-}
-
-func (h *UserHandler) Insert(w http.ResponseWriter, r *http.Request) {
-	var user User
-	er1 := json.NewDecoder(r.Body).Decode(&user)
-	defer r.Body.Close()
-	if er1 != nil {
-		http.Error(w, er1.Error(), http.StatusBadRequest)
-		return
-	}
-
-	result, er2 := h.service.Insert(r.Context(), &user)
-	if er2 != nil {
-		http.Error(w, er1.Error(), http.StatusInternalServerError)
-		return
-	}
-	respond(w, result)
-}
-
-func (h *UserHandler) Update(w http.ResponseWriter, r *http.Request) {
-	var user User
-	er1 := json.NewDecoder(r.Body).Decode(&user)
-	defer r.Body.Close()
-	if er1 != nil {
-		http.Error(w, er1.Error(), http.StatusBadRequest)
-		return
-	}
-	id := mux.Vars(r)["id"]
-	if len(id) == 0 {
-		http.Error(w, "Id cannot be empty", http.StatusBadRequest)
-		return
-	}
-	if id != user.Id {
-		http.Error(w, "Id not match", http.StatusBadRequest)
-		return
-	}
-
-	result, er2 := h.service.Update(r.Context(), &user)
-	if er2 != nil {
-		http.Error(w, er2.Error(), http.StatusInternalServerError)
-		return
-	}
-	respond(w, result)
-}
-
-func (h *UserHandler) Delete(w http.ResponseWriter, r *http.Request) {
-	id := mux.Vars(r)["id"]
-	if len(id) == 0 {
-		http.Error(w, "Id cannot be empty", http.StatusBadRequest)
-		return
-	}
-	result, err := h.service.Delete(r.Context(), id)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	respond(w, result)
-}
-
-func respond(w http.ResponseWriter, result interface{}) {
-	response, _ := json.Marshal(result)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(response)
+	server.Respond(w, r, http.StatusOK, result)
 }

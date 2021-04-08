@@ -2,12 +2,13 @@ package location
 
 import (
 	"context"
+	"net/http"
+	"reflect"
+
 	"github.com/common-go/http"
 	"github.com/common-go/search"
 	"github.com/common-go/service"
 	"github.com/common-go/validator"
-	"net/http"
-	"reflect"
 )
 
 type LocationHandler struct {

@@ -4,11 +4,11 @@ import (
 	"context"
 	"strings"
 
+	"github.com/common-go/health"
 	"github.com/common-go/log"
+	"github.com/common-go/mongo"
 	"github.com/common-go/validator"
 	"github.com/google/uuid"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"go-service/internal/handlers"
 	"go-service/internal/location"
@@ -23,28 +23,35 @@ func generateId(ctx context.Context) (string, error) {
 	id := randomId()
 	return id, nil
 }
+
 type ApplicationContext struct {
+	HealthHandler   *health.HealthHandler
 	UserHandler     *handlers.UserHandler
 	LocationHandler *location.LocationHandler
 }
 
-func NewApp(context context.Context, mongoConfig MongoConfig) (*ApplicationContext, error) {
-	client, err := mongo.Connect(context, options.Client().ApplyURI(mongoConfig.Uri))
+func NewApp(ctx context.Context, mongoConfig mongo.MongoConfig) (*ApplicationContext, error) {
+	db, err := mongo.SetupMongo(ctx, mongoConfig)
 	if err != nil {
 		return nil, err
 	}
 	logError := log.ErrorMsg
-	db := client.Database(mongoConfig.Database)
-
-	userService := services.NewUserService(db)
-	userHandler := handlers.NewUserHandler(userService)
 
 	validator := validator.NewDefaultValidator()
-	locationService := location.NewMongoLocationService(db)
+	userService := services.NewUserService(db)
+	userHandler := handlers.NewUserHandler(userService, generateId, validator, logError)
+
+
+	locationService := location.NewLocationService(db)
 	locationHandler := location.NewLocationHandler(locationService, generateId, validator, logError)
 
+	mongoChecker := mongo.NewHealthChecker(db)
+	checkers := []health.HealthChecker{mongoChecker}
+	healthHandler := health.NewHealthHandler(checkers)
+
 	return &ApplicationContext{
-		UserHandler: userHandler,
+		HealthHandler: healthHandler,
+		UserHandler:     userHandler,
 		LocationHandler: locationHandler,
 	}, nil
 }
