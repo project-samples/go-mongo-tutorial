@@ -39,8 +39,7 @@ func NewApp(ctx context.Context, mongoConfig mongo.MongoConfig) (*ApplicationCon
 
 	validator := validator.NewDefaultValidator()
 	userService := services.NewUserService(db)
-	userHandler := handlers.NewUserHandler(userService, generateId, validator, logError)
-
+	userHandler := handlers.NewUserHandler(userService, validator, logError)
 
 	locationService := location.NewLocationService(db)
 	locationHandler := location.NewLocationHandler(locationService, generateId, validator, logError)

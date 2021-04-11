@@ -22,8 +22,6 @@ func NewUserService(db *mongo.Database) *MongoUserService {
 	collectionName := "users"
 	modelType := reflect.TypeOf(model)
 	queryBuilder := m.NewQueryBuilder(modelType)
-	searchBuilder := m.NewSearchBuilderWithQuery(db, collectionName, modelType, queryBuilder.BuildQuery)
-	searchService := m.NewSearcher(searchBuilder.Search)
-	genericService := m.NewWriter(db, collectionName, modelType)
-	return &MongoUserService{SearchService: searchService, GenericService: genericService}
+	searcher, writer := m.NewSearchWriterWithQuery(db, collectionName, modelType, queryBuilder.BuildQuery)
+	return &MongoUserService{SearchService: searcher, GenericService: writer}
 }

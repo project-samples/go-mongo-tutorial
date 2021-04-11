@@ -7,7 +7,6 @@ import (
 
 	"github.com/common-go/http"
 	"github.com/common-go/search"
-	"github.com/common-go/service"
 	"github.com/common-go/validator"
 
 	. "go-service/internal/models"
@@ -21,13 +20,11 @@ type UserHandler struct {
 	Service UserService
 }
 
-func NewUserHandler(userService UserService, generateId func(context.Context) (string, error), validator validator.Validator, logError func(context.Context, string)) *UserHandler {
+func NewUserHandler(userService UserService, validator validator.Validator, logError func(context.Context, string)) *UserHandler {
 	modelType := reflect.TypeOf(User{})
 	searchModelType := reflect.TypeOf(UserSM{})
-	idGenerator := service.NewIdGenerator(generateId, false, false)
-	modelBuilder := service.NewModelBuilder(idGenerator.Generate, modelType, "", "userId", "CreatedBy", "CreatedAt", "UpdatedBy", "UpdatedAt")
 	searchHandler := search.NewSearchHandler(userService.Search, searchModelType, logError, nil)
-	genericHandler := server.NewGenericHandler(userService, modelType, modelBuilder, logError, validator.Validate)
+	genericHandler := server.NewGenericHandler(userService, modelType, nil, logError, validator.Validate)
 	return &UserHandler{GenericHandler: genericHandler, SearchHandler: searchHandler, Service: userService}
 }
 

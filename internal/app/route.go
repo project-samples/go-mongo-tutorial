@@ -18,7 +18,7 @@ func Route(r *mux.Router, ctx context.Context, mongoConfig mongo.MongoConfig) er
 
 	userPath := "/users"
 	r.HandleFunc(userPath, app.UserHandler.GetAll).Methods(GET)
-	r.HandleFunc(userPath+"/search", app.LocationHandler.Search).Methods(GET, POST)
+	r.HandleFunc(userPath+"/search", app.UserHandler.Search).Methods(GET, POST)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Load).Methods(GET)
 	r.HandleFunc(userPath, app.UserHandler.Insert).Methods(POST)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Update).Methods(PUT)
