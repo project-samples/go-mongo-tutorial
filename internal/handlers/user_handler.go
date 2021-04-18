@@ -5,9 +5,8 @@ import (
 	"net/http"
 	"reflect"
 
-	"github.com/common-go/http"
 	"github.com/common-go/search"
-	"github.com/common-go/validator"
+	sv "github.com/common-go/service"
 
 	. "go-service/internal/models"
 	. "go-service/internal/search-models"
@@ -15,16 +14,16 @@ import (
 )
 
 type UserHandler struct {
-	*server.GenericHandler
+	*sv.GenericHandler
 	*search.SearchHandler
 	Service UserService
 }
 
-func NewUserHandler(userService UserService, validator validator.Validator, logError func(context.Context, string)) *UserHandler {
+func NewUserHandler(userService UserService, validate func(context.Context, interface{}) ([]sv.ErrorMessage, error), logError func(context.Context, string)) *UserHandler {
 	modelType := reflect.TypeOf(User{})
 	searchModelType := reflect.TypeOf(UserSM{})
 	searchHandler := search.NewSearchHandler(userService.Search, modelType, searchModelType, logError, nil)
-	genericHandler := server.NewGenericHandler(userService, modelType, nil, logError, validator.Validate)
+	genericHandler := sv.NewGenericHandler(userService, modelType, nil, logError, validate)
 	return &UserHandler{GenericHandler: genericHandler, SearchHandler: searchHandler, Service: userService}
 }
 
@@ -34,5 +33,5 @@ func (h *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	server.Respond(w, r, http.StatusOK, result)
+	sv.JSON(w, http.StatusOK, result)
 }

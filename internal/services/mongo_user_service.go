@@ -18,11 +18,11 @@ type MongoUserService struct {
 	service.GenericService
 }
 
-func NewUserService(db *mongo.Database, getSort func(interface{}) string) *MongoUserService {
+func NewUserService(db *mongo.Database) *MongoUserService {
 	var model User
 	collectionName := "users"
 	modelType := reflect.TypeOf(model)
 	queryBuilder := query.NewBuilder(modelType)
-	searcher, writer := m.NewSearchWriter(db, collectionName, modelType, queryBuilder.BuildQuery, getSort)
+	searcher, writer := m.NewSearchWriter(db, collectionName, modelType, queryBuilder.BuildQuery, search.GetSort)
 	return &MongoUserService{SearchService: searcher, GenericService: writer}
 }

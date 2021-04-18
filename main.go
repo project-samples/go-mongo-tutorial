@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/common-go/config"
 	"github.com/common-go/log"
 	m "github.com/common-go/middleware"
+	sv "github.com/common-go/service"
 	"github.com/gorilla/mux"
 
 	"go-service/internal/app"
@@ -32,10 +32,6 @@ func main() {
 	if er2 != nil {
 		panic(er2)
 	}
-	fmt.Println("Start server")
-	server := ""
-	if conf.Server.Port > 0 {
-		server = ":" + strconv.Itoa(conf.Server.Port)
-	}
-	http.ListenAndServe(server, r)
+	fmt.Println(sv.GetStartMessage(conf.Server))
+	http.ListenAndServe(sv.GetServerAddress(conf.Server.Port), r)
 }
