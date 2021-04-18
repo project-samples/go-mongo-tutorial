@@ -43,8 +43,8 @@ github.com/common-go/mongo v0.3.2 h1:i79pvUcLLwqhV8J3MAjTsk3SzluEI6W/TitVB5ZxAsQ
 github.com/common-go/mongo v0.3.2/go.mod h1:+XUxn3BOmS4MWA0KscTBWv8PWmik9Uc2xQdxNfcMFEs=
 github.com/common-go/search v0.1.3 h1:7ulmrhDVUMs36K82ASyrYxEo4rxXIYnlrrapO0YPGqo=
 github.com/common-go/search v0.1.3/go.mod h1:zHsbLU+siQN42j371E/3w8n2xwcwzX0efvoH5VtwpzI=
-github.com/common-go/service v1.0.19-0.20210418144130-4ea5862fa97f h1:ibF8U4QuTwUdJsNy92AfEk/SNn8jvV3fxKItv527MYs=
-github.com/common-go/service v1.0.19-0.20210418144130-4ea5862fa97f/go.mod h1:o71LudgSwgvEqxwPWlP8YyKJIRbvg767DT50kIhiYjQ=
+github.com/common-go/service v0.1.4 h1:hVfFNSe7R68pGSS+IO9bddLveHNNLf9m9xx9R2r7XWM=
+github.com/common-go/service v0.1.4/go.mod h1:o71LudgSwgvEqxwPWlP8YyKJIRbvg767DT50kIhiYjQ=
 github.com/coreos/bbolt v1.3.2/go.mod h1:iRUV2dpdMOn7Bo10OQBFzIJO9kkE559Wcmn+qkEiiKk=
 github.com/coreos/etcd v3.3.13+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
 github.com/coreos/go-semver v0.3.0/go.mod h1:nnelYz7RCh+5ahJtPPxZlU+153eP4D4r3EedlOD2RNk=
