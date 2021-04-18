@@ -23,7 +23,7 @@ type UserHandler struct {
 func NewUserHandler(userService UserService, validator validator.Validator, logError func(context.Context, string)) *UserHandler {
 	modelType := reflect.TypeOf(User{})
 	searchModelType := reflect.TypeOf(UserSM{})
-	searchHandler := search.NewSearchHandler(userService.Search, searchModelType, logError, nil)
+	searchHandler := search.NewSearchHandler(userService.Search, modelType, searchModelType, logError, nil)
 	genericHandler := server.NewGenericHandler(userService, modelType, nil, logError, validator.Validate)
 	return &UserHandler{GenericHandler: genericHandler, SearchHandler: searchHandler, Service: userService}
 }

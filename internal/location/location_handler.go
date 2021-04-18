@@ -6,8 +6,8 @@ import (
 	"reflect"
 
 	"github.com/common-go/http"
+	"github.com/common-go/model-builder"
 	"github.com/common-go/search"
-	"github.com/common-go/service"
 	"github.com/common-go/validator"
 )
 
@@ -20,9 +20,9 @@ type LocationHandler struct {
 func NewLocationHandler(locationService LocationService, generateId func(context.Context) (string, error), validator validator.Validator, logError func(context.Context, string)) *LocationHandler {
 	modelType := reflect.TypeOf(Location{})
 	searchModelType := reflect.TypeOf(LocationSM{})
-	idGenerator := service.NewIdGenerator(generateId, false, false)
-	modelBuilder := service.NewModelBuilder(idGenerator.Generate, modelType, "", "userId", "CreatedBy", "CreatedAt", "UpdatedBy", "UpdatedAt")
-	searchHandler := search.NewSearchHandler(locationService.Search, searchModelType, logError, nil)
+	idGenerator := builder.NewIdGenerator(generateId, false, false)
+	modelBuilder := builder.NewModelBuilder(idGenerator.Generate, modelType, "CreatedBy", "CreatedAt", "UpdatedBy", "UpdatedAt", "userId")
+	searchHandler := search.NewSearchHandler(locationService.Search, modelType, searchModelType, logError, nil)
 	genericHandler := server.NewGenericHandler(locationService, modelType, modelBuilder, logError, validator.Validate)
 	return &LocationHandler{GenericHandler: genericHandler, SearchHandler: searchHandler, Service: locationService}
 }

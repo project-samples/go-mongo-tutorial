@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 
 	m "github.com/common-go/mongo"
+	"github.com/common-go/mongo/query"
 	"github.com/common-go/search"
 	"github.com/common-go/service"
 
@@ -17,11 +18,11 @@ type MongoUserService struct {
 	service.GenericService
 }
 
-func NewUserService(db *mongo.Database) *MongoUserService {
+func NewUserService(db *mongo.Database, getSort func(interface{}) string) *MongoUserService {
 	var model User
 	collectionName := "users"
 	modelType := reflect.TypeOf(model)
-	queryBuilder := m.NewQueryBuilder(modelType)
-	searcher, writer := m.NewSearchWriterWithQuery(db, collectionName, modelType, queryBuilder.BuildQuery)
+	queryBuilder := query.NewBuilder(modelType)
+	searcher, writer := m.NewSearchWriter(db, collectionName, modelType, queryBuilder.BuildQuery, getSort)
 	return &MongoUserService{SearchService: searcher, GenericService: writer}
 }
